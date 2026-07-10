@@ -2146,8 +2146,9 @@ to be flushed when PMLEN changes in a way that may affect these duplicate
 entries.
 ====
 
+[[norm:hfence-gvma_pmm]]
 To support implementations where (XLEN-PMLEN) can be less than the GPA width
-supported by `hgatp.MODE`, hypervisors should execute an `HFENCE.GVMA` with
+supported by `hgatp.MODE`, hypervisors must execute an `HFENCE.GVMA` with
 _rs1_=`x0` if the `henvcfg.PMM` is changed from or to a value where (XLEN-PMLEN)
 is less than GPA width supported by the `hgatp` translation mode of that guest.
 Specifically, these cases are:
