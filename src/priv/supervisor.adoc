@@ -1675,9 +1675,14 @@ exact, but allowing the A bit to be updated as a result of speculation
 simplifies the implementation of address translation prefetchers. System
 software typically uses the A bit as a page replacement policy hint, but
 does not require exactness for functional correctness. On the other
-hand, D bit updates are still required to be exact and performed in
-program order, as the D bit affects the functional correctness of page
-eviction.
+hand, D bit updates that result from an explicit store are still
+required to be exact and observed in program order by the local hart,
+as the D bit affects the functional correctness of page eviction.
+Permitting the D bit in a G-stage PTE that provides write permission
+to be set inexactly as a result of an implicit access to a VS-stage
+PTE does not affect functional correctness, since it can only set a D
+bit that need not have been set, at most causing additional pages to
+be written back to secondary storage.
 
 Implementations are of course still permitted to perform both A and D
 bit updates only in an exact manner.
