@@ -2380,11 +2380,12 @@ next state.#
 [NOTE]
 .Note to software developers
 ====
-The NIST standard (see extlink:zvknha[]) specifies the final hash as
-words serialized in big-endian byte order. After completing the hash computation,
-software must serialize those words accordingly. Whether an endian swap is needed
-depends on how software stores the words. A little-endian word store requires
-a swap, while a big-endian word store does not.
+After the final feed-forward, serialize the numerical hash words in the
+order specified by the NIST standard (see extlink:zvknha[]), using big-endian
+byte order within each word. Use the required prefix for a truncated digest.
+For example, to serialize an unmodified numerical hash word with a little-endian
+word store, reverse the bytes within that word first. A big-endian word store
+can use the numerical value directly. This byte reversal preserves word order.
 ====
 
 [NOTE]
