@@ -205,7 +205,8 @@ mod 2^32^.
 [[norm:fmvh-x-d_op]]
 For RV32 only, if the ext:d[] extension is implemented, the insn:fmvh.x.d[] instruction
 moves bits 63:32 of floating-point register _rs1_ into
-integer register _rd_. It is encoded in the OP-FP major opcode with
+integer register _rd_, ignoring the upper FLEN-64 bits of _rs1_.
+It is encoded in the OP-FP major opcode with
 _funct3_=0, _rs2_=1, and _funct7_=1110001.
 
 [NOTE]
