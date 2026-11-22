@@ -2696,7 +2696,7 @@ include::images/wavedrom/wfi.edn[]
 
 [#norm:wfi_mepc_val]#If an enabled interrupt is present or later becomes present while the
 hart is stalled, the interrupt trap will be taken on the following
-instruction, i.e., execution resumes in the trap handler and `mepc` = `pc` + 4.#
+instruction.#
 
 [NOTE]
 ====
