@@ -3598,7 +3598,8 @@ classes of floating-point inputs, where _B_ is the exponent bias:
 |===
 
 NOTE: Subnormal inputs with magnitude at least 2^-(B+1)^ produce normal outputs;
-other subnormal inputs produce infinite outputs.
+other subnormal inputs produce either an infinity or the finite value of
+greatest magnitude, depending on the rounding mode and the input's sign.
 Normal inputs with magnitude at least 2^B-1^ produce subnormal outputs;
 other normal inputs produce normal outputs.
 
