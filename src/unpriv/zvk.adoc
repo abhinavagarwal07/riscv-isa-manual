@@ -2380,10 +2380,11 @@ next state.#
 [NOTE]
 .Note to software developers
 ====
-The NIST standard (see extlink:zvknha[]) requires the final hash to be in big-endian byte ordering
-within SEW-sized words. Since this instruction treats all words as little-endian,
-software needs to perform an endian swap on the final output of this instruction
-after all of the message blocks have been processed.
+The NIST standard (see extlink:zvknha[]) specifies the final hash as
+words serialized in big-endian byte order. After completing the hash computation,
+software must serialize those words accordingly. Whether an endian swap is needed
+depends on how software stores the words. A little-endian word store requires
+a swap, while a big-endian word store does not.
 ====
 
 [NOTE]
@@ -2560,12 +2561,13 @@ next 4 message-schedule words.#
 [NOTE]
 .Note to software developers
 ====
-The first 16 SEW-sized words of the message schedule come from the _message block_
-in big-endian byte order. Since this instruction treats all words as little endian,
-software is required to endian swap these words.
-
-All of the subsequent message schedule words are produced by this instruction and
-therefore do not require an endian swap.
+The first 16 SEW-sized words of the message schedule are interpreted from the
+_message block_ in big-endian byte order. Software must supply the corresponding
+numerical word values. Whether an endian swap is needed depends on the input
+representation. Little-endian word loads of the message bytes require a swap,
+whereas big-endian word loads do not.
+Subsequent message schedule words produced by this instruction are already in
+the required numerical representation.
 ====
 
 [NOTE]
