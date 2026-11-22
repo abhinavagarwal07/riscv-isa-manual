@@ -32,11 +32,19 @@ half-precision. cite:[roux:hal-01091186] Performing half-precision fused multipl
 this method incurs a 1-ulp error on some inputs for the RNE and RMM
 rounding modes.
 
-Conversion from 8- or 16-bit integers to half-precision can be emulated
-by first converting to single-precision, then converting to
-half-precision. Conversion from 32-bit integer can be emulated by first
-converting to double-precision. If the ext:d[] extension is not present and a
-1-ulp error under RNE or RMM is tolerable, 32-bit integers can be first
-converted to single-precision instead. The same remark applies to
-conversions from 64-bit integers without the ext:q[] extension.
+To convert signed or unsigned integers to half precision, use
+insn:fcvt.s.w[] or insn:fcvt.s.wu[] for 32-bit inputs, or insn:fcvt.s.l[] or
+insn:fcvt.s.lu[] for 64-bit inputs on RV64, followed by insn:fcvt.h.s[].
+Sign-extend narrower signed inputs or zero-extend narrower unsigned inputs
+to 32 bits before using the word forms. Use the desired rounding mode for
+both instructions. The result and accrued exception flags after the sequence
+match those of a direct conversion to half precision in all five standard
+rounding modes.
+
+Single precision represents every integer of magnitude up to 65536 exactly.
+Larger integer magnitudes round to single-precision magnitudes of at least
+65536. In this case, the conversion to half precision gives the same
+mode-dependent overflow result with the same sign as the direct conversion.
+It raises both overflow and inexact, so any inexact exception from the
+first conversion is also raised by the second.
 ====
